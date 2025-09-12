@@ -119,33 +119,6 @@ MAX_FILE_SIZE=52428800  # 50MB
 - ✅ **Logging e monitoramento** integrados
 - ✅ **Hot reload** em desenvolvimento
 
-## 🔄 Migração Flask → FastAPI
-
-### Melhorias Implementadas:
-
-1. **Estrutura Profissional:**
-   - Separação de responsabilidades (services, models, endpoints)
-   - Configurações centralizadas
-   - Arquitetura modular
-
-2. **Recursos Avançados:**
-   - Validação automática com Pydantic
-   - Documentação interativa automática
-   - Middleware personalizado
-   - Tratamento de exceções global
-
-3. **Performance e Segurança:**
-   - Processamento assíncrono
-   - Validação de tamanho de arquivo
-   - Headers de segurança
-   - Tempo de resposta monitorado
-
-4. **Developer Experience:**
-   - Type hints completos
-   - Hot reload em desenvolvimento
-   - Logs estruturados
-   - Documentação automática
-
 ## 🌐 URLs Importantes
 
 Com a API rodando em http://localhost:8000:
