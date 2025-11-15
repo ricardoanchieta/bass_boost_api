@@ -1,6 +1,7 @@
 """
 Configurações da aplicação Bass Boost API
 """
+import os
 from typing import Optional
 
 
@@ -28,7 +29,7 @@ class Settings:
     min_bass_boost: int = -50
     max_bass_boost: int = 50
     
-    # CORS Settings
+    # CORS Settings (pode ser sobrescrito por CORS_ORIGINS do ambiente)
     cors_origins: list = ["*"]
     cors_methods: list = ["GET", "POST"]
     cors_headers: list = ["*"]
@@ -36,3 +37,8 @@ class Settings:
 
 # Instância global das configurações
 settings = Settings()
+
+# Sobrescrever CORS_ORIGINS via variável de ambiente (lista separada por vírgulas)
+_cors_env = os.environ.get("CORS_ORIGINS")
+if _cors_env:
+    settings.cors_origins = [o.strip() for o in _cors_env.split(",") if o.strip()]

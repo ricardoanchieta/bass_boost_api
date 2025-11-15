@@ -1,7 +1,7 @@
 """
 Endpoint para processamento de bass boost
 """
-from fastapi import APIRouter, UploadFile, File, Form, HTTPException
+from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Depends
 from fastapi.responses import StreamingResponse
 from typing import Annotated
 import io
@@ -9,6 +9,7 @@ import io
 from ...services.audio_service import AudioService
 from ...models.audio_models import ErrorResponse
 from ...core.config import settings
+from ..security import require_api_key
 
 
 router = APIRouter(
@@ -18,7 +19,8 @@ router = APIRouter(
         400: {"model": ErrorResponse},
         413: {"model": ErrorResponse},
         500: {"model": ErrorResponse}
-    }
+    },
+    dependencies=[Depends(require_api_key)]
 )
 
 
