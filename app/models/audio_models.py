@@ -1,7 +1,7 @@
 """
 Modelos Pydantic para validação de dados de áudio
 """
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional
 
 
@@ -14,7 +14,7 @@ class BassBoostRequest(BaseModel):
         description="Número para aumentar/diminuir o grave (entre -50 e 50)"
     )
     
-    @validator('boost_number')
+    @field_validator('boost_number')
     def validate_boost_number(cls, v):
         if not -50 <= v <= 50:
             raise ValueError('boost_number deve estar entre -50 e 50')
