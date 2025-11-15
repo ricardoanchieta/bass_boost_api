@@ -29,13 +29,13 @@ router = APIRouter(
     response_description="Arquivo de áudio processado com grave aumentado"
 )
 async def bass_boost(
-    file: Annotated[UploadFile, File(description="Arquivo de áudio (MP3, WAV, M4A, FLAC)")],
-    boost_number: Annotated[int, Form(
-        description="Valor para aumentar o grave",
-        ge=settings.min_bass_boost,
-        le=settings.max_bass_boost,
-        example=5
-    )] = settings.default_bass_boost
+    file: UploadFile = File(
+        description="Arquivo de áudio (MP3, WAV, M4A, FLAC)"
+    ),
+    boost_number: int = Form(
+        default=settings.default_bass_boost,
+        description="Valor para aumentar o grave (entre -50 e 50)"
+    ),
 ):
     """
     Aumenta o grave de um arquivo de áudio
@@ -52,6 +52,9 @@ async def bass_boost(
     """
     
     try:
+        # Validar intervalo do boost explicitamente (compatível com Pydantic v2 em Form)
+        if not (settings.min_bass_boost <= boost_number <= settings.max_bass_boost):
+            raise HTTPException(status_code=400, detail=f"boost_number deve estar entre {settings.min_bass_boost} e {settings.max_bass_boost}")
         # Processar áudio
         output, processed_filename = await AudioService.process_bass_boost(file, boost_number)
         
